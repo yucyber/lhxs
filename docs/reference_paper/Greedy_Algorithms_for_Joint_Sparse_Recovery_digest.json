@@ -1,0 +1,98 @@
+{
+  "title": "Greedy Algorithms for Joint Sparse Recovery",
+  "authors": [
+    "Jeffrey D. Blanchard",
+    "Michael Cermak",
+    "David Hanle",
+    "Yirong Jing"
+  ],
+  "institution_in_pdf": "Grinnell College",
+  "manuscript_timeline": {
+    "submitted": "2013-07",
+    "accepted": "2014-01"
+  },
+  "topic": {
+    "primary": "joint sparse recovery",
+    "setting": "multiple measurement vectors (MMV)",
+    "core_objects": [
+      "row-sparse matrices",
+      "jointly sparse signals",
+      "greedy algorithms"
+    ]
+  },
+  "problem_statement": "Extend greedy sparse recovery algorithms from the single measurement vector setting to the multiple measurement vector setting and analyze their recovery guarantees and empirical performance.",
+  "algorithms_extended": [
+    {
+      "smv": "IHT",
+      "mmv": "SIHT"
+    },
+    {
+      "smv": "NIHT",
+      "mmv": "SNIHT"
+    },
+    {
+      "smv": "HTP",
+      "mmv": "SHTP"
+    },
+    {
+      "smv": "NHTP",
+      "mmv": "SNHTP"
+    },
+    {
+      "smv": "CoSaMP",
+      "mmv": "SCoSaMP"
+    }
+  ],
+  "theoretical_framework": {
+    "main_tool": "ARIP (Asymmetric Restricted Isometry Property)",
+    "guarantees": [
+      "row-sparse approximation error bounds",
+      "exact recovery guarantees in jointly sparse setting",
+      "convergence factors and stability factors"
+    ]
+  },
+  "experimental_protocol": {
+    "comparisons": [
+      "strong phase transitions",
+      "weak phase transitions",
+      "comparison to RA-SOMP+MUSIC"
+    ],
+    "matrix_ensembles": [
+      "Gaussian",
+      "subsampled DCT"
+    ],
+    "joint_sparsity_levels_tested": [
+      1,
+      2,
+      5,
+      10
+    ]
+  },
+  "main_findings": [
+    "Normalized variants improve performance over fixed-step variants, especially in MMV.",
+    "Performance improves as the number of jointly sparse measurement vectors increases.",
+    "Under Gaussian matrices, SCoSaMP often achieves stronger empirical weak phase transitions.",
+    "SNIHT, SNHTP, and SCoSaMP empirically outperform RA-SOMP+MUSIC in weak phase transition comparisons.",
+    "Worst-case ARIP/RIP sufficient conditions are pessimistic relative to empirical behavior."
+  ],
+  "limitations_or_caveats": [
+    "Average-case theory for these greedy thresholding algorithms is not fully available.",
+    "Theoretical sufficient conditions are more conservative than observed empirical performance.",
+    "Some benefits depend on the measurement ensemble."
+  ],
+  "recommended_ai_ingestion_strategy": {
+    "best_practice": [
+      "original_pdf",
+      "clean_markdown",
+      "jsonl_chunks",
+      "structured_digest_json"
+    ],
+    "why": "This combination supports human verification, direct LLM reading, vector retrieval, and metadata routing."
+  },
+  "files_generated": [
+    "Greedy_Algorithms_for_Joint_Sparse_Recovery_clean.md",
+    "Greedy_Algorithms_for_Joint_Sparse_Recovery_chunks.jsonl",
+    "Greedy_Algorithms_for_Joint_Sparse_Recovery_AI_digest_zh.md",
+    "Greedy_Algorithms_for_Joint_Sparse_Recovery_digest.json"
+  ]
+}
