@@ -1,0 +1,45 @@
+# 步骤11：P0_profile_audit_fix
+
+- 时间：2026-04-06 00:12
+- 本步骤目标：补齐完整复现计划书、profile 配置分层、复现审计与 rank-aware 基线增强，并完成基础验证
+- 本步骤新增/修改文件：
+- `docs/ai_workflow/联合稀疏论文完整复现计划书.md`
+- `README.md`
+- `configs/strong_phase.yaml`
+- `configs/weak_phase.yaml`
+- `configs/step_size_compare.yaml`
+- `configs/rank_aware_compare.yaml`
+- `configs/algorithms.yaml`
+- `src/joint_sparse_recovery/config_utils.py`
+- `src/joint_sparse_recovery/data/signal_models.py`
+- `src/joint_sparse_recovery/experiments/strong_phase.py`
+- `src/joint_sparse_recovery/experiments/weak_phase.py`
+- `src/joint_sparse_recovery/experiments/step_size_compare.py`
+- `src/joint_sparse_recovery/experiments/rank_aware_compare.py`
+- `src/joint_sparse_recovery/algorithms/ra_somp_music.py`
+- `src/joint_sparse_recovery/theory/arip_bounds.py`
+- `src/joint_sparse_recovery/theory/strong_transition.py`
+- `src/joint_sparse_recovery/reporting/reproduction_audit.py`
+- `src/joint_sparse_recovery/reporting/__init__.py`
+- `scripts/run_strong_phase.py`
+- `scripts/run_step_size_compare.py`
+- `scripts/run_weak_phase.py`
+- `scripts/run_rank_aware_compare.py`
+- `scripts/run_all_experiments.py`
+- `scripts/run_reproduction_audit.py`
+- `tests/test_config_profiles.py`
+- `tests/test_reproduction_audit.py`
+- `outputs/reports/复现状态对照表.md`
+- `outputs/profiles/paper/reports/复现状态对照表.md`
+- `outputs/profiles/paper/tables/strong_phase_curves.csv`
+- `outputs/profiles/paper/figures/fig1_strong_phase.png`
+- 本步骤执行的命令：
+- `.\.venv\Scripts\python.exe -m unittest discover -s tests`
+- `.\.venv\Scripts\python.exe scripts\run_reproduction_audit.py`
+- `.\.venv\Scripts\python.exe scripts\run_reproduction_audit.py --profile paper`
+- `.\.venv\Scripts\python.exe scripts\run_strong_phase.py --profile paper`
+- `.\.venv\Scripts\python.exe scripts\run_all_experiments.py`
+- 自检结果：27 个单测通过；quick 审计与 paper 审计已生成；paper strong phase 已产出 profile 专属图表。
+- 遇到的问题与判断：strong phase exact ARIP 公式仍缺来源；`run_all_experiments.py` 已完成 quick 重跑并生成报告，但在终端工具侧表现为超时返回，需要按输出文件而不是返回码判断是否成功。
+- 下一步建议：优先运行 step-size / weak / rank-aware 的 paper profile，再依据 `fit_status` 和曲线偏差继续调参与核对文献。
+

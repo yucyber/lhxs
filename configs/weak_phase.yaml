@@ -1,0 +1,65 @@
+{
+  "format_note": "JSON syntax stored in .yaml to avoid a PyYAML dependency.",
+  "default_profile": "quick",
+  "paper_reference": {
+    "n": 1024,
+    "joint_sparsity_levels": [1, 2, 5, 10],
+    "delta_grid_description": "15 base values m=ceil(delta*n) with delta in {0.01,0.02,0.04,0.06,0.08,0.1,...,0.99}, plus 8 additional linearly spaced values from 0.1 to 0.99.",
+    "binary_search_rule": "Find [kmin,kmax] where kmin has at least 8/10 successes and kmax has at most 2/10 successes.",
+    "band_sampling_rule": "Sample 50 linearly spaced k values on [kmin,kmax], or enumerate all integer k if width <= 50.",
+    "trials_per_k": 10,
+    "success_definition": "||X_hat - X||_F <= 0.001",
+    "matrix_ensembles": {
+      "Gaussian": "entries drawn iid from N(0, 1/m)",
+      "DCT": "select m random rows from an n x n DCT matrix"
+    },
+    "signal_ensemble": "Rademacher nonzeros from {-1,1} with probability 1/2",
+    "logistic_regression": "rho_W(delta) is the 50% success location estimated by a logistic fit."
+  },
+  "run": {
+    "n": 128,
+    "delta_grid": [0.15, 0.35, 0.55, 0.75, 0.9],
+    "joint_sparsity_levels": [1, 2, 5, 10],
+    "matrix_ensembles": ["gaussian", "dct"],
+    "matrix_options": {
+      "gaussian": {},
+      "dct": {
+        "normalize_columns": true
+      }
+    },
+    "algorithms": ["SNIHT", "SNHTP", "SCoSaMP"],
+    "binary_search_trials": 4,
+    "band_trials": 4,
+    "band_grid_size": 12,
+    "max_binary_search_steps": 8,
+    "random_seed": 20260404,
+    "fast_mode_note": "Default n and delta grid are reduced so the full pipeline can run quickly. Set n=1024 and expand delta_grid for closer paper-scale reproduction.",
+    "output_table": "outputs/tables/weak_phase_curves.csv",
+    "output_raw_trials": "outputs/tables/weak_phase_trials.csv",
+    "output_figure_gaussian": "outputs/figures/fig3_weak_phase_gaussian.png",
+    "output_figure_dct": "outputs/figures/fig7_weak_phase_dct.png",
+    "output_report": "outputs/reports/weak_phase_summary.md"
+  },
+  "profiles": {
+    "paper": {
+      "n": 1024,
+      "delta_grid": [
+        0.01, 0.02, 0.04, 0.06, 0.08,
+        0.10, 0.15, 0.20, 0.25, 0.30,
+        0.35, 0.40, 0.45, 0.50, 0.55,
+        0.60, 0.65, 0.70, 0.75, 0.80,
+        0.85, 0.90, 0.95, 0.99
+      ],
+      "binary_search_trials": 10,
+      "band_trials": 10,
+      "band_grid_size": 50,
+      "max_binary_search_steps": 14,
+      "matrix_options": {
+        "gaussian": {},
+        "dct": {
+          "normalize_columns": false
+        }
+      }
+    }
+  }
+}

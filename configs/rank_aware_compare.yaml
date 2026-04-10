@@ -1,0 +1,44 @@
+{
+  "format_note": "JSON syntax stored in .yaml to avoid a PyYAML dependency.",
+  "default_profile": "quick",
+  "paper_reference": {
+    "comparison": "SNIHT, SNHTP, SCoSaMP versus RA-SOMP+MUSIC",
+    "matrix_ensemble": "Gaussian",
+    "joint_sparsity_levels": [1, 10],
+    "figure": "Fig.4"
+  },
+  "run": {
+    "n": 128,
+    "delta_grid": [0.15, 0.35, 0.55, 0.75, 0.9],
+    "joint_sparsity_levels": [1, 10],
+    "matrix_ensembles": ["gaussian"],
+    "matrix_options": {
+      "gaussian": {}
+    },
+    "algorithms": ["SNIHT", "SNHTP", "SCoSaMP", "RA-SOMP+MUSIC"],
+    "binary_search_trials": 4,
+    "band_trials": 4,
+    "band_grid_size": 12,
+    "max_binary_search_steps": 8,
+    "random_seed": 20260424,
+    "output_table": "outputs/tables/rank_aware_compare_curves.csv",
+    "output_figure": "outputs/figures/fig4_rank_aware_compare.png",
+    "output_report": "outputs/reports/rank_aware_compare_summary.md"
+  },
+  "profiles": {
+    "paper": {
+      "n": 1024,
+      "delta_grid": [
+        0.01, 0.02, 0.04, 0.06, 0.08,
+        0.10, 0.15, 0.20, 0.25, 0.30,
+        0.35, 0.40, 0.45, 0.50, 0.55,
+        0.60, 0.65, 0.70, 0.75, 0.80,
+        0.85, 0.90, 0.95, 0.99
+      ],
+      "binary_search_trials": 10,
+      "band_trials": 10,
+      "band_grid_size": 50,
+      "max_binary_search_steps": 14
+    }
+  }
+}

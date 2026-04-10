@@ -1,0 +1,59 @@
+{
+  "format_note": "JSON syntax stored in .yaml to avoid a PyYAML dependency.",
+  "default_profile": "quick",
+  "paper_reference": {
+    "comparisons": [
+      "SIHT (omega=0.65) vs SNIHT",
+      "SHTP (omega=1.0) vs SNHTP"
+    ],
+    "joint_sparsity_levels": [1, 10],
+    "ensembles": ["Gaussian", "DCT"],
+    "figures": ["Fig.2", "Fig.6"]
+  },
+  "run": {
+    "n": 128,
+    "delta_grid": [0.15, 0.35, 0.55, 0.75, 0.9],
+    "joint_sparsity_levels": [1, 10],
+    "matrix_ensembles": ["gaussian", "dct"],
+    "matrix_options": {
+      "gaussian": {},
+      "dct": {
+        "normalize_columns": true
+      }
+    },
+    "algorithm_pairs": [
+      ["SIHT", "SNIHT"],
+      ["SHTP", "SNHTP"]
+    ],
+    "binary_search_trials": 4,
+    "band_trials": 4,
+    "band_grid_size": 12,
+    "max_binary_search_steps": 8,
+    "random_seed": 20260414,
+    "output_table": "outputs/tables/step_size_compare_curves.csv",
+    "output_figure": "outputs/figures/fig2_fig6_step_size_compare.png",
+    "output_report": "outputs/reports/step_size_compare_summary.md"
+  },
+  "profiles": {
+    "paper": {
+      "n": 1024,
+      "delta_grid": [
+        0.01, 0.02, 0.04, 0.06, 0.08,
+        0.10, 0.15, 0.20, 0.25, 0.30,
+        0.35, 0.40, 0.45, 0.50, 0.55,
+        0.60, 0.65, 0.70, 0.75, 0.80,
+        0.85, 0.90, 0.95, 0.99
+      ],
+      "binary_search_trials": 10,
+      "band_trials": 10,
+      "band_grid_size": 50,
+      "max_binary_search_steps": 14,
+      "matrix_options": {
+        "gaussian": {},
+        "dct": {
+          "normalize_columns": false
+        }
+      }
+    }
+  }
+}

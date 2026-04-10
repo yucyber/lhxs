@@ -1,0 +1,64 @@
+{
+  "format_note": "This .yaml file intentionally stores a JSON object so scripts can parse it with the Python standard library.",
+  "algorithms": {
+    "SIHT": {
+      "family": "thresholding",
+      "fixed_step_size": 0.65,
+      "normalized": false,
+      "max_iterations": 1200,
+      "paper_reference": "SIHT uses a fixed step size. Supplementary DCT-vs-Gaussian comparisons use omega=0.65 for SIHT."
+    },
+    "SNIHT": {
+      "family": "thresholding",
+      "fixed_step_size": null,
+      "normalized": true,
+      "max_iterations": 1200,
+      "paper_reference": "SNIHT uses the normalized near-optimal step size from Algorithm 1."
+    },
+    "SHTP": {
+      "family": "pursuit",
+      "fixed_step_size": 1.0,
+      "normalized": false,
+      "max_iterations": 150,
+      "paper_reference": "SHTP uses a fixed step size omega=1 in Algorithm 2 and Fig.2/Fig.6 comparisons."
+    },
+    "SNHTP": {
+      "family": "pursuit",
+      "fixed_step_size": null,
+      "normalized": true,
+      "max_iterations": 150,
+      "paper_reference": "SNHTP uses the normalized near-optimal step size from Algorithm 2."
+    },
+    "SCoSaMP": {
+      "family": "cosamp",
+      "candidate_size": 1,
+      "max_iterations": 150,
+      "paper_reference": "For empirical weak-phase experiments, Step 2 selects k indices instead of 2k; candidate_size=1 means k."
+    },
+    "RA-SOMP+MUSIC": {
+      "family": "rank_aware",
+      "max_iterations": 150,
+      "music_refinement": true,
+      "paper_reference": "Baseline for Fig.4 comparison. Current code uses a hybrid k-rank greedy support build plus MUSIC completion, which is closer to the literature workflow than the earlier single-refinement approximation, but still needs paper-level equivalence checking."
+    }
+  },
+  "stopping": {
+    "residual_small_factor": 0.001,
+    "diverging_factor": 100.0,
+    "stagnation_window": 16,
+    "stagnation_tol": 1e-6,
+    "late_rate_threshold": 0.999,
+    "late_rate_lag": 15,
+    "late_start": {
+      "thresholding": 700,
+      "pursuit": 125,
+      "cosamp": 125,
+      "rank_aware": 125
+    },
+    "paper_reference": "Stopping criteria are taken from Section III-B of the target paper."
+  },
+  "success": {
+    "frobenius_tol": 0.001,
+    "paper_reference": "A trial succeeds if ||X_hat - X||_F <= 0.001."
+  }
+}

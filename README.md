@@ -55,6 +55,7 @@
 | 路径 | 作用 |
 | --- | --- |
 | `docs/ai_workflow/联合稀疏复现实验_AI逐文件代码生成工作流.md` | AI 逐文件生成代码的目录树、模块职责、分步骤执行 prompt、日志切换规则 |
+| `docs/ai_workflow/联合稀疏论文完整复现计划书.md` | 当前未完成项的优先级、难易程度、实施方案与推进顺序 |
 | `docs/thesis_draft/毕业论文_参考文献按引用顺序重排_v2.md` | 当前论文初稿/正文材料 |
 | `docs/reference_paper/Greedy_Algorithms_for_Joint_Sparse_Recovery_clean.md` | 目标论文清洗版 Markdown，适合直接给 AI 阅读 |
 | `docs/reference_paper/Greedy_Algorithms_for_Joint_Sparse_Recovery_chunks.jsonl` | 按页切块文本，适合后续做 RAG/检索 |
@@ -73,10 +74,83 @@
 如果你要让 AI 直接按步骤生成复现实验代码，请先打开：
 
 - `docs/ai_workflow/联合稀疏复现实验_AI逐文件代码生成工作流.md`
+- `docs/ai_workflow/联合稀疏论文完整复现计划书.md`
 
 建议从文档里的 **STEP 0** 开始执行，不要跳步。
 
 如果中途结果对不上，先看 `日志/` 里最近 2~3 份步骤记录，再按 `skills/skills.md` 的 **Skill 4：实验异常诊断** 回溯排查。
+
+## 当前代码与实验怎么跑
+
+### 1. 一键运行全部实验
+
+```powershell
+.\.venv\Scripts\python.exe .\scripts\run_all_experiments.py
+```
+
+### 1.1 运行更接近论文尺度的 `paper` profile
+
+```powershell
+.\.venv\Scripts\python.exe .\scripts\run_all_experiments.py --profile paper
+```
+
+### 2. 单独运行某一组实验
+
+```powershell
+.\.venv\Scripts\python.exe .\scripts\run_strong_phase.py
+.\.venv\Scripts\python.exe .\scripts\run_step_size_compare.py
+.\.venv\Scripts\python.exe .\scripts\run_weak_phase.py
+.\.venv\Scripts\python.exe .\scripts\run_rank_aware_compare.py
+.\.venv\Scripts\python.exe .\scripts\run_reproduction_audit.py
+```
+
+也可以给任一脚本追加 `--profile paper`：
+
+```powershell
+.\.venv\Scripts\python.exe .\scripts\run_step_size_compare.py --profile paper
+.\.venv\Scripts\python.exe .\scripts\run_weak_phase.py --profile paper
+.\.venv\Scripts\python.exe .\scripts\run_rank_aware_compare.py --profile paper
+.\.venv\Scripts\python.exe .\scripts\run_reproduction_audit.py --profile paper
+```
+
+### 3. 运行单元测试
+
+```powershell
+.\.venv\Scripts\python.exe -m unittest discover -s tests
+```
+
+### 4. 输出结果在哪里
+
+- 图像：`outputs/figures/`
+- 表格：`outputs/tables/`
+- 报告：`outputs/reports/`
+- `paper` profile 输出：`outputs/profiles/paper/`
+- 步骤日志：`日志/`
+
+当前已经自动跑出一版快速实验结果，可先看：
+
+- `outputs/reports/实验总览报告.md`
+- `outputs/reports/复现状态对照表.md`
+- `outputs/reports/复现偏差排查入口.md`
+- `outputs/figures/fig1_strong_phase.png`
+- `outputs/figures/fig2_fig6_step_size_compare.png`
+- `outputs/figures/fig3_weak_phase_gaussian.png`
+- `outputs/figures/fig4_rank_aware_compare.png`
+- `outputs/figures/fig7_weak_phase_dct.png`
+
+### 5. 重要说明
+
+当前 `configs/*.yaml` 的 `paper_reference` 保存原论文协议，`run` 保存默认快速可跑参数，`paper` profile 保存更接近论文尺度的运行参数。
+
+这意味着：
+
+- **已经能自动跑完整实验管线**
+- 但当前默认输出是**快速配置下的工程复现结果**
+- `--profile paper` 会把输出写到 `outputs/profiles/paper/`，避免覆盖 quick 结果
+- `strong phase transition` 目前使用 **surrogate ARIP 边界**
+- `RA-SOMP+MUSIC` 目前是**hybrid k-rank greedy + MUSIC completion 的近似实现**
+
+所以当前结果适合先做“流程跑通 + 趋势检查 + 偏差定位”，如果要进一步贴近论文正式曲线，下一步应该优先逐步放大 `configs/*.yaml` 的 `run` 尺度，并核对 strong-phase ARIP 边界公式和 rank-aware 基线实现。
 
 ## AI Skills 使用方式
 

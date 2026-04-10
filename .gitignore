@@ -1,0 +1,4 @@
+.venv/
+__pycache__/
+*.py[cod]
+_tmp_zip_review/

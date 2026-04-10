@@ -1,0 +1,24 @@
+# Rank-Aware Comparison
+
+- 配置 profile：`paper`
+- 曲线表：`outputs/profiles/paper/tables/rank_aware_compare_curves.csv`
+- 对照图：`outputs/profiles/paper/figures/fig4_rank_aware_compare.png`
+- 已完成 chunk：`150/192`
+- 本次运行新增 chunk：`5`
+- 当前累计曲线点：`118`
+- 当前累计跳过 chunk：`32`
+- 运行模式：paper-scale 下采用逐点分块落盘，可中断后直接重跑续跑。
+- 跳过记录：`outputs/profiles/paper/tables/rank_aware_compare_skipped_chunks.csv`
+- 下一个待跑 chunk：
+  - algorithm=`RA-SOMP+MUSIC`
+  - ensemble=`gaussian`
+  - l=`1`
+  - delta=`0.15`
+- 最近一次跳过 chunk：
+  - algorithm=`SCoSaMP`
+  - ensemble=`gaussian`
+  - l=`10`
+  - delta=`0.99`
+  - reason=`timeout`
+- 真实性边界：RA-SOMP+MUSIC 已增强为更接近论文流程的近似实现，但仍需文献级等价核对。
+- 保护机制：单 chunk 现在通过子进程执行并带超时，避免前端中断后后台进程长时间失控。
